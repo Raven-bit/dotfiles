@@ -87,9 +87,9 @@ oncall() {
 # Just... fuck it... grab a current neovim and dump it to .local
 # Should almost never need to run this; so comment it out entirely by
 # default
-# linux-local-stable-neovim() {
-#   curl https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz -L --output - | gzip -cd - | tar xf - --strip-components=1 -C ${HOME}/.local/
-# }
+ linux-local-stable-neovim() {
+   curl https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz -L --output - | gzip -cd - | tar xf - --strip-components=1 -C ${HOME}/.local/
+ }
 
 gopathremove() {
   # Split PATH into array of elements
@@ -135,3 +135,9 @@ else
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
+
+if [ -e "${HOME}/.nvm" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi;
