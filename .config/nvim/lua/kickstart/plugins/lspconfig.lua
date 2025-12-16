@@ -285,7 +285,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         -- For typescript.. ->rvn<-
-        'ts_ls',
+        'tsserver',
         'eslint_d',
         'prettierd',
         'biome', -- This one gets us lsp-signature output in ts.

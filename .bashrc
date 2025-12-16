@@ -69,7 +69,4 @@ readbook ()
         eject /dev/sr0
 }
 
-
-if [[ -f ${HOME}/.cargo/env ]]; then
-  . "${HOME}/.cargo/env"
-fi;
+. "$HOME/.cargo/env"
