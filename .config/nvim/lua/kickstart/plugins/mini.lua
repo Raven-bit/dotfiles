@@ -19,6 +19,14 @@ return {
 
       -- Automatically strip trailing whitespace
       require('mini.trailspace').setup()
+      local trailspace_augroup = vim.api.nvim_create_augroup('trailspace', { clear = true })
+      vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+        group = trailspace_augroup,
+        callback = function()
+          require('mini.trailspace').trim()
+          require('mini.trailspace').trim_last_lines()
+        end,
+      })
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,

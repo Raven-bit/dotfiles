@@ -209,7 +209,7 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
+        gopls = {},
         -- pyright = {},
         rust_analyzer = {
           settings = {
@@ -265,9 +265,10 @@ return {
       -- The following loop will configure each server with the capabilities we defined above.
       -- This will ensure that all servers have the same base configuration, but also
       -- allow for server-specific overrides.
-      for server_name, server_config in pairs(servers) do
-        server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
-        require('lspconfig')[server_name].setup(server_config)
+      for server, config in pairs(servers) do
+        config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
+        vim.lsp.config(server, config)
+        vim.lsp.enable(server)
       end
 
       -- Ensure the servers and tools above are installed
@@ -285,7 +286,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         -- For typescript.. ->rvn<-
-        'tsserver',
+        'ts_ls',
         'eslint_d',
         'prettierd',
         'biome', -- This one gets us lsp-signature output in ts.
